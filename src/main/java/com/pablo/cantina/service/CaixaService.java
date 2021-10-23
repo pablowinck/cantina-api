@@ -34,7 +34,7 @@ public class CaixaService {
     }
 
     public Caixa fechar(Long id, BigDecimal valor) {
-        testValor(valor);
+        validarValor(valor);
         Caixa caixa = procurar(id);
 
         if (caixa.getValor_fechamento() != null)
@@ -49,7 +49,7 @@ public class CaixaService {
     }
 
     public Caixa suprir(Long id, BigDecimal valor) {
-        testValor(valor);
+        validarValor(valor);
         Caixa caixa = procurar(id);
 
         if (caixa.getValor() == null)
@@ -60,7 +60,7 @@ public class CaixaService {
     }
 
     public Caixa sangria(Long id, BigDecimal valor) {
-        testValor(valor);
+        validarValor(valor);
         Caixa caixa = procurar(id);
 
         BigDecimal novoValor = caixa.getValor().subtract(valor);
@@ -85,7 +85,7 @@ public class CaixaService {
         return caixaRepository.findByAtivo(true, pageable);
     }
 
-    private void testValor(BigDecimal valor) {
+    private void validarValor(BigDecimal valor) {
         if (valor == null)
             throw new IllegalArgumentException("Valor não pode ser nulo");
         if (valor.compareTo(BigDecimal.ZERO) < 0)
